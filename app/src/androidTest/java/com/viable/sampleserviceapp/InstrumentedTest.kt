@@ -10,8 +10,6 @@ import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
-import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.AfterClass
@@ -22,6 +20,8 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -77,7 +77,8 @@ class InstrumentedTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test(timeout = MAX_TIMEOUT)
     fun runInApp() = runTest {
-        val pr = uiDevice?.findObject(UiSelector().textContains("Hello Android!"))
+        val pr =
+            uiDevice?.findObject(UiSelector().textContains(appContext.getString(R.string.text_view)))
         checkNotNull(pr)
         pr.click()
     }
